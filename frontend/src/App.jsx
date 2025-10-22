@@ -1,3 +1,6 @@
+// Copyright (c) 2025 Dmitar Strbac
+// Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for full license information.
+
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
