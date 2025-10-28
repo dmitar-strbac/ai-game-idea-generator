@@ -98,7 +98,7 @@ export default function App() {
           style={{
             fontSize: "2rem",
             marginBottom: "1rem",
-            textShadow: "0 0 10px rgba(56,189,248,0.6)",
+            textShadow: "0 0 10px rgba(56,189,248,0.3)",
           }}
         >
           🎮 AI Game Idea Generator
