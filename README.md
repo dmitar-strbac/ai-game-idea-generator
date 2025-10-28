@@ -1,19 +1,81 @@
-# React + Vite
+# 🎮 AI Game Idea Generator
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> **Create original game concepts with AI — from idea to visual layout.**  
+> Built with **FastAPI**, **OpenAI API**, and **React (Vite)**.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🧠 What It Does
 
-## React Compiler
+The **AI Game Idea Generator** is a creative assistant that helps you design unique video game concepts using natural language input.  
+Simply describe your idea (e.g. *"I want a 2D cyberpunk platformer with boss fights and a crafting system"*) and the app will generate:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- 🏷️ **Game Title**
+- 🧩 **Genre**
+- 🧍 **Main Character & Backstory**
+- ⚙️ **Gameplay Mechanics**
+- 🗺️ **Level Progression** (JSON-based)
+- 🎨 **Visual Style Suggestions**
 
-## Expanding the ESLint configuration
+## 🧩 Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Frontend:
 
-## License
+- ⚛️ React + Vite
+- 🎨 Animated background (gradient + particle effects)
+- 🧱 Modern component-based architecture
+
+### Backend:
+
+- ⚡ FastAPI (Python)
+- 🧠 OpenAI GPT-4 API
+- 🧰 Modular structure: routers/, services/, .env config
+
+## ⚙️ Installation & Setup
+### 🖥️ 1. Clone the repository
+
+```bash
+git clone https://github.com/dmitar-strbac/ai-game-idea-generator.git  
+cd ai-game-idea-generator
+```
+
+### 🚀 2. Backend Setup (FastAPI)
+
+```bash
+cd backend  
+python -m venv venv  
+source venv/bin/activate     # or venv\Scripts\activate on Windows  
+pip install -r requirements.txt
+```
+
+Create a .env file in /backend:
+```bash
+OPENAI_API_KEY=your_api_key_here
+```
+
+Run the server:
+```bash
+uvicorn app:app --reload
+```
+
+The backend will start at: http://127.0.0.1:8000
+
+### ⚛️ 3. Frontend Setup (React + Vite)
+
+```bash
+cd frontend  
+npm install  
+npm run dev 
+``` 
+Open http://localhost:5173 in your browser.
+
+## 🧑‍💻 Author
+
+**Dmitar Štrbac**  
+📍 Faculty of Technical Sciences, University of Novi Sad  
+📧 Contact: dmitarstrbac@gmail.com  
+🗓️ 2025
+
+## 📜 License
+
 This project is licensed under the Apache License 2.0 — see the [LICENSE](./LICENSE) file for details.
