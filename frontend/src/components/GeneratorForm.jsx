@@ -1,14 +1,19 @@
 import { useState } from "react";
+import LayoutVisualizer from "./LayoutVisualizer";
+import ImageVisualizer from "./ImageVisualizer";
+import { generateImage } from "../api/imageApi";
 
 export default function GeneratorForm() {
   const [prompt, setPrompt] = useState("");
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [image, setImage] = useState(null);
 
   const handleGenerate = async (e) => {
     e.preventDefault();
     setLoading(true);
     setResult(null);
+    setImage(null);
 
     try {
       const res = await fetch("http://127.0.0.1:8000/api/generate", {
@@ -18,6 +23,9 @@ export default function GeneratorForm() {
       });
       const data = await res.json();
       setResult(data.result);
+
+      const imgData = await generateImage(prompt);
+      setImage(imgData.image);
     } catch (err) {
       console.error(err);
       setResult("❌ Failed to connect to backend.");
@@ -76,6 +84,18 @@ export default function GeneratorForm() {
 
       {result && (
         <>
+          <h3
+            style={{
+              color: "#38bdf8",
+              marginTop: "1.5rem",
+              marginBottom: "0.5rem",
+              fontWeight: "600",
+              fontSize: "1.1rem",
+            }}
+          >
+            📄 Phase 1 — Textual Game Idea (JSON)
+          </h3>
+
           <pre
             style={{
               marginTop: "20px",
@@ -93,29 +113,31 @@ export default function GeneratorForm() {
             {JSON.stringify(result, null, 2)}
           </pre>
 
-          {result.layout && (
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: `repeat(${result.layout[0].length}, 25px)`,
-                gap: "3px",
-                justifyContent: "center",
-                marginTop: "1rem",
-              }}
-            >
-              {result.layout.flat().map((cell, i) => (
-                <div
-                  key={i}
-                  style={{
-                    width: 25,
-                    height: 25,
-                    background: cell === 1 ? "#38bdf8" : "#1e293b",
-                    borderRadius: "3px",
-                  }}
-                />
-              ))}
-            </div>
-          )}
+          <h3
+            style={{
+            color: "#38bdf8",
+            marginTop: "1.5rem",
+            marginBottom: "0.5rem",
+            fontWeight: "600",
+            fontSize: "1.1rem",
+            }}
+          >
+            🧩 Phase 2 — Layout Visualization (Grid)
+          </h3>
+          <LayoutVisualizer layout={result.layout} />
+          
+          <h3
+            style={{
+              color: "#38bdf8",
+              marginTop: "1.5rem",
+              marginBottom: "0.5rem",
+              fontWeight: "600",
+              fontSize: "1.1rem",
+            }}
+          >
+            🖼️ Phase 3 — Generated Level Preview (AI Image)
+          </h3>
+          <ImageVisualizer image={image} />
         </>
       )}
     </div>
