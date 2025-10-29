@@ -1,22 +1,26 @@
 import { useState } from "react";
-import { generateIdea } from "../api/generatorApi";
 
 export default function GeneratorForm() {
   const [prompt, setPrompt] = useState("");
-  const [result, setResult] = useState("");
+  const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const handleGenerate = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setResult("");
+    setResult(null);
 
     try {
-      const data = await generateIdea(prompt);
-      setResult(data.result || JSON.stringify(data, null, 2));
+      const res = await fetch("http://127.0.0.1:8000/api/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt }),
+      });
+      const data = await res.json();
+      setResult(data.result);
     } catch (err) {
       console.error(err);
-      setResult("❌ Error connecting to backend.");
+      setResult("❌ Failed to connect to backend.");
     } finally {
       setLoading(false);
     }
@@ -35,7 +39,7 @@ export default function GeneratorForm() {
         boxShadow: "0 4px 10px rgba(0,0,0,0.3)",
       }}
     >
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleGenerate}>
         <textarea
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
@@ -66,25 +70,53 @@ export default function GeneratorForm() {
             cursor: loading ? "not-allowed" : "pointer",
           }}
         >
-          {loading ? "Generating..." : "Generate"}
+          {loading ? "Generating..." : "Generate Idea"}
         </button>
       </form>
 
       {result && (
-        <pre
-          style={{
-            marginTop: "20px",
-            background: "#0f172a",
-            color: "#a5f3fc",
-            padding: "10px",
-            borderRadius: "8px",
-            textAlign: "left",
-            whiteSpace: "pre-wrap",
-            wordWrap: "break-word",
-          }}
-        >
-          {result}
-        </pre>
+        <>
+          <pre
+            style={{
+              marginTop: "20px",
+              background: "#0f172a",
+              color: "#a5f3fc",
+              padding: "10px",
+              borderRadius: "8px",
+              textAlign: "left",
+              whiteSpace: "pre-wrap",
+              wordWrap: "break-word",
+              maxHeight: "300px",
+              overflowY: "auto",
+            }}
+          >
+            {JSON.stringify(result, null, 2)}
+          </pre>
+
+          {result.layout && (
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: `repeat(${result.layout[0].length}, 25px)`,
+                gap: "3px",
+                justifyContent: "center",
+                marginTop: "1rem",
+              }}
+            >
+              {result.layout.flat().map((cell, i) => (
+                <div
+                  key={i}
+                  style={{
+                    width: 25,
+                    height: 25,
+                    background: cell === 1 ? "#38bdf8" : "#1e293b",
+                    borderRadius: "3px",
+                  }}
+                />
+              ))}
+            </div>
+          )}
+        </>
       )}
     </div>
   );

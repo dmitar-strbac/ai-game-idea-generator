@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from pydantic import BaseModel
-from services.ai_generator import generate_game_idea
+from services.ai_generator import generate_game_idea_with_layout
 
 router = APIRouter(prefix="/api/generator", tags=["Generator"])
 
@@ -9,4 +9,4 @@ class GameIdeaRequest(BaseModel):
 
 @router.post("/")
 async def generate_idea(req: GameIdeaRequest):
-    return generate_game_idea(req.prompt)
+    return generate_game_idea_with_layout(req.prompt)
