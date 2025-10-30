@@ -1,3 +1,6 @@
+// Copyright (c) 2025 Dmitar Strbac
+// Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for full license information.
+
 import { useCallback } from "react";
 import Particles from "react-tsparticles";
 import { loadSlim } from "tsparticles-slim";
@@ -12,19 +15,16 @@ export default function App() {
     <div
       style={{
         position: "relative",
-        height: "100vh",
+        top: 0,
+        left: 0,
         width: "100vw",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
+        height: "100vh",
         overflow: "hidden",
-        color: "white",
-        fontFamily: "sans-serif",
       }}
     >
       <div
         style={{
-          position: "absolute",
+          position: "fixed",
           top: 0,
           left: 0,
           width: "100%",
@@ -72,38 +72,58 @@ export default function App() {
           detectRetina: true,
         }}
         style={{
-          position: "absolute",
+          position: "fixed",
           top: 0,
           left: 0,
-          zIndex: 1.5,
+          zIndex: 1,
           width: "100%",
           height: "100%",
+          pointerEvents: "none",
         }}
       />
 
       <div
         style={{
           position: "relative",
+          height: "85vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          color: "white",
+          fontFamily: "sans-serif",
+          padding: "3rem 1rem",
+          paddingBottom: "5rem",
           zIndex: 2,
-          background: "rgba(30, 41, 59, 0.9)",
-          padding: "2rem 2.5rem",
-          borderRadius: "16px",
-          boxShadow: "0 0 25px rgba(56, 189, 248, 0.25)",
-          textAlign: "center",
-          width: "min(600px, 90%)",
-          backdropFilter: "blur(6px)",
+          overflowY: "auto",
+          overflowX: "hidden",
         }}
       >
-        <h1
+        <div
           style={{
-            fontSize: "2rem",
-            marginBottom: "1rem",
-            textShadow: "0 0 10px rgba(56,189,248,0.3)",
+            position: "relative",
+            background: "rgba(30, 41, 59, 0.9)",
+            padding: "2rem 2.5rem",
+            borderRadius: "16px",
+            boxShadow: "0 0 25px rgba(56, 189, 248, 0.25)",
+            textAlign: "center",
+            width: "min(600px, 90%)",
+            maxWidth: "600px",
+            backdropFilter: "blur(6px)",
+            marginTop: "auto",
+            marginBottom: "auto",
           }}
         >
-          🎮 AI Game Idea Generator
-        </h1>
-        <GeneratorForm />
+          <h1
+            style={{
+              fontSize: "2rem",
+              marginBottom: "1rem",
+              textShadow: "0 0 10px rgba(56,189,248,0.3)",
+            }}
+          >
+            🎮 AI Game Idea Generator
+          </h1>
+          <GeneratorForm />
+        </div>
       </div>
 
       <style>

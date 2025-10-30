@@ -2,35 +2,27 @@
 # Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for full license information.
 
 from fastapi import FastAPI
-from pydantic import BaseModel
-from openai import OpenAI
-import os
-from dotenv import load_dotenv
+from fastapi.middleware.cors import CORSMiddleware
+from routers import generator, layout, image
 
-load_dotenv()
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+app = FastAPI(title="AI Game Idea Generator")
 
-app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-class GameIdeaRequest(BaseModel):
-    genre: str
-    theme: str
-    style: str
+app.include_router(generator.router)
+app.include_router(layout.router, prefix="/api")
+app.include_router(image.router, prefix="/api/image")
 
-@app.post("/generate")
-def generate_game_idea(req: GameIdeaRequest):
-    prompt = f"""
-    Generate a game concept in JSON format with:
-    - Title
-    - Main character
-    - World description
-    - Gameplay mechanics
-    - Level design
-    Genre: {req.genre}, Theme: {req.theme}, Style: {req.style}
-    """
-    response = client.chat.completions.create(
-        model="gpt-4o",
-        messages=[{"role": "user", "content": prompt}],
-        temperature=0.9
-    )
-    return {"idea": response.choices[0].message.content}
+@app.get("/")
+def root():
+    return {"message": "AI Game Idea Generator API running"}
+
+@app.get("/api/test")
+def test_backend():
+    return {"status": "ok", "message": "Backend connected successfully 🚀"}

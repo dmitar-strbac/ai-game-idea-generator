@@ -3,6 +3,23 @@
 > **Create original game concepts with AI — from idea to visual layout.**  
 > Built with **FastAPI**, **OpenAI API**, and **React (Vite)**.
 
+<p align="center">
+  <img 
+    src="./frontend/public/app-preview1.png" 
+    alt="AI Game Idea Generator Screenshot 1" 
+    width="48%" 
+    style="border-radius:10px;box-shadow:0 0 10px rgba(0,0,0,0.3);margin-right:1%;" 
+  />
+  <img 
+    src="./frontend/public/app-preview2.png" 
+    alt="AI Game Idea Generator Screenshot 2" 
+    width="48%" 
+    style="border-radius:10px;box-shadow:0 0 10px rgba(0,0,0,0.3);margin-left:1%;" 
+  />
+  <br/>
+  <em>Generated game idea (Phase 1: Text → Phase 2: Layout → Phase 3: AI Image)</em>
+</p>
+
 ---
 
 ## 🧠 What It Does
